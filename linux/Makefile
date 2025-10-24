@@ -73,7 +73,7 @@ MESA_DIR=/usr/local/src/Mesa-2.6
 EGCS=/usr/local/egcs-1.1.2/bin/gcc
 
 CC=gcc
-BASE_CFLAGS=-I/usr/local/include -Dstricmp=strcasecmp -D_GNU_SOURCE -Wno-format-truncation -Wno-unused-result -Wno-format-overflow
+BASE_CFLAGS=-I/usr/local/include -Dstricmp=strcasecmp -D_GNU_SOURCE -Wno-format-truncation -Wno-unused-result -Wno-format-overflow -std=c99
 
 ifeq ($(ARCH),axp)
 RELEASE_CFLAGS=$(BASE_CFLAGS) -DNDEBUG -O3 -funroll-loops \
@@ -243,7 +243,8 @@ QUAKE2_OBJS = \
 	$(BUILDDIR)/client/net_udp.o \
 	\
 	$(BUILDDIR)/client/q_shared.o \
-	$(BUILDDIR)/client/pmove.o
+	$(BUILDDIR)/client/pmove.o \
+	$(BUILDDIR)/client/neurosdk.o 
 
 ifeq ($(ARCH),axp)
 QUAKE2_AS_OBJS =  #blank
@@ -313,6 +314,9 @@ $(BUILDDIR)/client/snd_mix.o :    $(CLIENT_DIR)/snd_mix.c
 	$(DO_CC)
 
 $(BUILDDIR)/client/qmenu.o :      $(CLIENT_DIR)/qmenu.c
+	$(DO_CC)
+
+$(BUILDDIR)/client/neurosdk.o :      $(CLIENT_DIR)/neurosdk/neurosdk.c
 	$(DO_CC)
 
 $(BUILDDIR)/client/m_flash.o :    $(GAME_DIR)/m_flash.c
